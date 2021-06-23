@@ -63,7 +63,7 @@ export default {
               title: "Unit",
               type: "string",
               options: {
-                list: ["grams", "cup", "Tbs.", "tsp."]
+                list: ["grams", "oz", "lb", "cup", "Tbs.", "tsp.", "clove"]
               }
             }
           ],
