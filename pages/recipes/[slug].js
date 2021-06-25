@@ -10,6 +10,7 @@ import {
 const recipeQuery = `*[_type == "recipe" && slug.current == $slug][0]{
   _id,
   name, 
+  summary,
   slug,
   mainImage,
   ingredient[]{
@@ -53,27 +54,30 @@ export default function OneRecipe({ data }) {
 
   return (
     <article className="recipe">
-      <h1>{recipe.name}</h1>
+      <h1 className="heading-main">{recipe.name}</h1>
+      <h2 className="heading-secondary">{recipe?.summary}</h2>
       <button className="like-button" onClick={addLike}>
         {likes} ❤️
       </button>
       <main className="content">
         <img src={urlFor(recipe?.mainImage).url()} alt={recipe?.name} />
         <div className="breakdown">
+          <h3 className="heading-small">Ingredients</h3>
           <ul className="ingredients">
             {recipe.ingredient?.map((ingredient) => (
               <li key={ingredient._key} className="ingredient">
-                {ingredient?.wholeNumber}
-                {ingredient?.fraction} {ingredient?.unit}
-                <br />
-                {ingredient?.ingredient.name}
+                {ingredient?.ingredient.name} -{ingredient?.fraction}{" "}
+                {ingredient?.wholeNumber} {ingredient?.unit}
               </li>
             ))}
           </ul>
-          <PortableText
-            blocks={recipe?.instructions}
-            className="instructions"
-          />
+          <div>
+            <h3 className="heading-small">Method</h3>
+            <PortableText
+              blocks={recipe?.instructions}
+              className="instructions"
+            />
+          </div>
         </div>
       </main>
     </article>
