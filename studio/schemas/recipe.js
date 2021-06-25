@@ -9,6 +9,11 @@ export default {
       type: "string"
     },
     {
+      name: "summary",
+      title: "Recipe summary",
+      type: "string"
+    },
+    {
       name: "slug",
       title: "Slug",
       type: "slug",
