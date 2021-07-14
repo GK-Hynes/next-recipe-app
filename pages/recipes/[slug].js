@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import {
@@ -54,39 +55,47 @@ export default function OneRecipe({ data }) {
   };
 
   return (
-    <article className="recipe">
-      <h1 className="heading-main">{recipe.name}</h1>
-      <h2 className="heading-secondary">{recipe?.summary}</h2>
-      <button className="like-button" onClick={addLike}>
-        {likes} ❤️
-      </button>
-      <main className="content">
-        <Image
-          src={urlFor(recipe?.mainImage).url()}
-          alt={recipe?.name}
-          width={800}
-          height={550}
-        />
-        <div className="breakdown">
-          <h3 className="heading-small">Ingredients</h3>
-          <ul className="ingredients">
-            {recipe.ingredient?.map((ingredient) => (
-              <li key={ingredient._key} className="ingredient">
-                {ingredient?.ingredient.name} -{ingredient?.fraction}{" "}
-                {ingredient?.wholeNumber} {ingredient?.unit}
-              </li>
-            ))}
-          </ul>
-          <div>
-            <h3 className="heading-small">Method</h3>
-            <PortableText
-              blocks={recipe?.instructions}
-              className="instructions"
-            />
+    <>
+      <Head>
+        <title>{recipe.name} | Julie's Kitchen</title>
+        <meta name="description" content="A recipe app built with Next.js" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <article className="recipe">
+        <h1 className="heading-main">{recipe.name}</h1>
+        <h2 className="heading-secondary">{recipe?.summary}</h2>
+        <button className="like-button" onClick={addLike}>
+          {likes} ❤️
+        </button>
+        <main className="content">
+          <Image
+            src={urlFor(recipe?.mainImage).url()}
+            alt={recipe?.name}
+            width={800}
+            height={550}
+            priority="true"
+          />
+          <div className="breakdown">
+            <h3 className="heading-small">Ingredients</h3>
+            <ul className="ingredients">
+              {recipe.ingredient?.map((ingredient) => (
+                <li key={ingredient._key} className="ingredient">
+                  {ingredient?.ingredient.name} -{ingredient?.fraction}{" "}
+                  {ingredient?.wholeNumber} {ingredient?.unit}
+                </li>
+              ))}
+            </ul>
+            <div>
+              <h3 className="heading-small">Method</h3>
+              <PortableText
+                blocks={recipe?.instructions}
+                className="instructions"
+              />
+            </div>
           </div>
-        </div>
-      </main>
-    </article>
+        </main>
+      </article>
+    </>
   );
 }
 
