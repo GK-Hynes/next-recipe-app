@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import {
   sanityClient,
   urlFor,
@@ -60,7 +61,12 @@ export default function OneRecipe({ data }) {
         {likes} ❤️
       </button>
       <main className="content">
-        <img src={urlFor(recipe?.mainImage).url()} alt={recipe?.name} />
+        <Image
+          src={urlFor(recipe?.mainImage).url()}
+          alt={recipe?.name}
+          width={800}
+          height={550}
+        />
         <div className="breakdown">
           <h3 className="heading-small">Ingredients</h3>
           <ul className="ingredients">
